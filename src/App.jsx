@@ -1,25 +1,55 @@
 import React, { useState, useEffect } from "react";
-import { Container, AppBar, Typography, Grow, Grid } from "@material-ui/core";
+import { Container, AppBar, Typography, Grow, Grid } from "@mui/material";
+import { styled } from "@mui/material/styles";
 import { useDispatch } from "react-redux";
 
 import { Form, Posts } from "./components";
 import { getPosts } from "./actions/posts";
 import memories from "./images/memories.png";
 
-import useStyles from "./styles";
-
 function App() {
    const [currentId, setCurrentId] = useState(null);
-
-   const classes = useStyles();
    const dispatch = useDispatch();
+
+   const PREFIX = "App";
+
+   const classes = {
+      appBar: `${PREFIX}-appBar`,
+      heading: `${PREFIX}-heading`,
+      image: `${PREFIX}-image`,
+      mainContainer: `${PREFIX}-mainContainer`,
+   };
+
+   // container by mui/material has used in here code to be new component
+
+   const AppStyled = styled(Container)(({ theme }) => ({
+      [`& .${classes.appBar}`]: {
+         borderRadius: 15,
+         margin: "30px 0",
+         display: "flex",
+         flexDirection: "row",
+         justifyContent: "center",
+         alignItems: "center",
+      },
+      [`& .${classes.heading}`]: {
+         color: "rgba(0,183,255, 1)",
+      },
+      [`& .${classes.image}`]: {
+         marginLeft: "15px",
+      },
+      [theme.breakpoints.down("sm")]: {
+         [`& .${classes.mainContainer}`]: {
+            flexDirection: "column-reverse",
+         },
+      },
+   }));
 
    useEffect(() => {
       dispatch(getPosts());
    }, [currentId, dispatch]);
 
    return (
-      <Container maxWidth="lg">
+      <AppStyled maxWidth="lg">
          <AppBar className={classes.appBar} position="static" color="inherit">
             <Typography className={classes.heading} variant="h2" align="center">
                Memories
@@ -49,7 +79,7 @@ function App() {
                </Grid>
             </Container>
          </Grow>
-      </Container>
+      </AppStyled>
    );
 }
 

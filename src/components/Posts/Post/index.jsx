@@ -6,22 +6,87 @@ import {
    CardMedia,
    Button,
    Typography,
-} from "@material-ui/core";
+} from "@mui/material";
+import { styled } from "@mui/material/styles";
 import moment from "moment";
-import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
-import DeleteIcon from "@material-ui/icons/Delete";
-import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
+import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
+import DeleteIcon from "@mui/icons-material/Delete";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { useDispatch } from "react-redux";
 
-import useStyles from "./styles";
 import { deletePost, likePost } from "../../../actions/posts";
 
 const Index = ({ post, setCurrentId }) => {
-   const classes = useStyles();
+   const PREFIX = "post-style";
+
+   const classes = {
+      media: `${PREFIX}-media`,
+      border: `${PREFIX}-border`,
+      fullHeightCard: `${PREFIX}-fullHeightCard`,
+      card: `${PREFIX}-card`,
+      overlay: `${PREFIX}-overlay`,
+      overlay2: `${PREFIX}-overlay2`,
+      grid: `${PREFIX}-grid`,
+      details: `${PREFIX}-details`,
+      title: `${PREFIX}-title`,
+      cardActions: `${PREFIX}-cardActions`,
+   };
+
+   const PostStyled = styled(Card)(() => ({
+      [`& .${classes.media}`]: {
+         height: 0,
+         paddingTop: "56.25%",
+         backgroundColor: "rgba(0, 0, 0, 0.5)",
+         backgroundBlendMode: "darken",
+      },
+      [`& .${classes.border}`]: {
+         border: "solid",
+      },
+      [`& .${classes.fullHeightCard}`]: {
+         height: "100%",
+      },
+      [`&.${classes.card}`]: {
+         display: "flex",
+         flexDirection: "column",
+         justifyContent: "space-between",
+         borderRadius: "15px",
+         height: "100%",
+         position: "relative",
+      },
+      [`& .${classes.overlay}`]: {
+         position: "absolute",
+         top: "20px",
+         left: "20px",
+         color: "white",
+      },
+      [`& .${classes.overlay2}`]: {
+         position: "absolute",
+         top: "20px",
+         right: "20px",
+         color: "white",
+      },
+      [`& .${classes.grid}`]: {
+         display: "flex",
+      },
+      [`& .${classes.details}`]: {
+         display: "flex",
+         justifyContent: "space-between",
+         margin: "20px",
+      },
+      [`& .${classes.title}`]: {
+         padding: "0 16px",
+      },
+      [`& .${classes.cardActions}`]: {
+         padding: "0 16px 8px 16px",
+         display: "flex",
+         justifyContent: "space-between",
+      },
+   }));
+
    const dispatch = useDispatch();
 
    return (
-      <Card className={classes.card}>
+      <PostStyled className={classes.card}>
          <CardMedia
             className={classes.media}
             image={post.selectedFile}
@@ -74,7 +139,7 @@ const Index = ({ post, setCurrentId }) => {
                &nbsp; Delete &nbsp;
             </Button>
          </CardActions>
-      </Card>
+      </PostStyled>
    );
 };
 

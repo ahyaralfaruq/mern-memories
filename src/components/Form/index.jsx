@@ -1,12 +1,45 @@
 import React, { useState, useEffect } from "react";
-import { TextField, Button, Typography, Paper } from "@material-ui/core";
+import { TextField, Button, Typography, Paper } from "@mui/material";
+import { styled } from "@mui/material/styles";
 import FileBase from "react-file-base64";
 import { useDispatch, useSelector } from "react-redux";
 
-import useStyles from "./styles";
 import { createPost, updatePost } from "../../actions/posts";
 
 const Index = ({ currentId, setCurrentId }) => {
+   const PREFIX = "Form-style";
+
+   const classes = {
+      root: `${PREFIX}-root`,
+      paper: `${PREFIX}-paper`,
+      form: `${PREFIX}-form`,
+      fileInput: `${PREFIX}-fileInput`,
+      buttonSubmit: `${PREFIX}-buttonSubmit`,
+   };
+
+   const FormStyled = styled(Paper)(({ theme }) => ({
+      [`& .${classes.root}`]: {
+         "& .MuiTextField-root": {
+            margin: theme.spacing(1),
+         },
+      },
+      [`&.${classes.paper}`]: {
+         padding: theme.spacing(2),
+      },
+      [`& .${classes.form}`]: {
+         display: "flex",
+         flexWrap: "wrap",
+         justifyContent: "center",
+      },
+      [`& .${classes.fileInput}`]: {
+         width: "97%",
+         margin: "10px 0",
+      },
+      [`& .${classes.buttonSubmit}`]: {
+         marginBottom: 10,
+      },
+   }));
+
    const [postData, setPostData] = useState({
       creator: "",
       title: "",
@@ -17,7 +50,6 @@ const Index = ({ currentId, setCurrentId }) => {
    const post = useSelector((state) =>
       currentId ? state.posts.find((p) => p._id === currentId) : null
    );
-   const classes = useStyles();
    const dispatch = useDispatch();
 
    useEffect(() => {
@@ -47,7 +79,7 @@ const Index = ({ currentId, setCurrentId }) => {
    };
 
    return (
-      <Paper className={classes.paper}>
+      <FormStyled className={classes.paper}>
          <form
             autoComplete="off"
             noValidate
@@ -94,7 +126,10 @@ const Index = ({ currentId, setCurrentId }) => {
                fullWidth
                value={postData.tags}
                onChange={(e) =>
-                  setPostData({ ...postData, tags: e.target.value.split(",") })
+                  setPostData({
+                     ...postData,
+                     tags: e.target.value.split(","),
+                  })
                }
             />
             <div className={classes.fileInput}>
@@ -126,7 +161,7 @@ const Index = ({ currentId, setCurrentId }) => {
                Clear
             </Button>
          </form>
-      </Paper>
+      </FormStyled>
    );
 };
 
