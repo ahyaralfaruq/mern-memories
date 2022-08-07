@@ -59,16 +59,17 @@ const Index = ({ currentId, setCurrentId }) => {
    const handleSubmit = (e) => {
       e.preventDefault();
 
-      if (currentId) {
-         dispatch(updatePost(currentId, postData));
-      } else {
+      if (currentId === 0) {
          dispatch(createPost(postData));
+         clear();
+      } else {
+         dispatch(updatePost(currentId, postData));
+         clear();
       }
-      clear();
    };
 
    const clear = () => {
-      setCurrentId(null);
+      setCurrentId(0);
       setPostData({
          creator: "",
          title: "",
