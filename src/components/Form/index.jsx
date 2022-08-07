@@ -52,9 +52,9 @@ const Index = ({ currentId, setCurrentId }) => {
    });
    const dispatch = useDispatch();
 
-   useEffect(() => {
-      if (post) setPostData(post);
-   }, [post]);
+   // useEffect(() => {
+   //    if (post) setPostData(post);
+   // }, [post]);
 
    const handleSubmit = (e) => {
       e.preventDefault();
