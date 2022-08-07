@@ -6,40 +6,40 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { createPost, updatePost } from "../../actions/posts";
 
+const PREFIX = "Form-style";
+
+const classes = {
+   root: `${PREFIX}-root`,
+   paper: `${PREFIX}-paper`,
+   form: `${PREFIX}-form`,
+   fileInput: `${PREFIX}-fileInput`,
+   buttonSubmit: `${PREFIX}-buttonSubmit`,
+};
+
+const FormStyled = styled(Paper)(({ theme }) => ({
+   [`& .${classes.root}`]: {
+      "& .MuiTextField-root": {
+         margin: theme.spacing(1),
+      },
+   },
+   [`&.${classes.paper}`]: {
+      padding: theme.spacing(2),
+   },
+   [`& .${classes.form}`]: {
+      display: "flex",
+      flexWrap: "wrap",
+      justifyContent: "center",
+   },
+   [`& .${classes.fileInput}`]: {
+      width: "97%",
+      margin: "10px 0",
+   },
+   [`& .${classes.buttonSubmit}`]: {
+      marginBottom: 10,
+   },
+}));
+
 const Index = ({ currentId, setCurrentId }) => {
-   const PREFIX = "Form-style";
-
-   const classes = {
-      root: `${PREFIX}-root`,
-      paper: `${PREFIX}-paper`,
-      form: `${PREFIX}-form`,
-      fileInput: `${PREFIX}-fileInput`,
-      buttonSubmit: `${PREFIX}-buttonSubmit`,
-   };
-
-   const FormStyled = styled(Paper)(({ theme }) => ({
-      [`& .${classes.root}`]: {
-         "& .MuiTextField-root": {
-            margin: theme.spacing(1),
-         },
-      },
-      [`&.${classes.paper}`]: {
-         padding: theme.spacing(2),
-      },
-      [`& .${classes.form}`]: {
-         display: "flex",
-         flexWrap: "wrap",
-         justifyContent: "center",
-      },
-      [`& .${classes.fileInput}`]: {
-         width: "97%",
-         margin: "10px 0",
-      },
-      [`& .${classes.buttonSubmit}`]: {
-         marginBottom: 10,
-      },
-   }));
-
    const [postData, setPostData] = useState({
       creator: "",
       title: "",
@@ -59,17 +59,16 @@ const Index = ({ currentId, setCurrentId }) => {
    const handleSubmit = (e) => {
       e.preventDefault();
 
-      if (currentId === 0) {
-         dispatch(createPost(postData));
-         clear();
-      } else {
+      if (currentId) {
          dispatch(updatePost(currentId, postData));
-         clear();
+      } else {
+         dispatch(createPost(postData));
       }
+      clear();
    };
 
    const clear = () => {
-      setCurrentId(0);
+      setCurrentId(null);
       setPostData({
          creator: "",
          title: "",
