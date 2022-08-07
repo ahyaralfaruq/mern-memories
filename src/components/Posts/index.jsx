@@ -4,30 +4,30 @@ import React from "react";
 import { useSelector } from "react-redux";
 import Post from "./Post";
 
+const PREFIX = "Posts-style";
+
+const classes = {
+   mainContainer: `${PREFIX}-mainContainer`,
+   smMargin: `${PREFIX}-smMargin`,
+   actionDiv: `${PREFIX}-actionDiv`,
+};
+
+const theme = createTheme();
+
+const PostsStyled = styled(Grid)(({ theme }) => ({
+   [`& .${classes.mainContainer}`]: {
+      display: "flex",
+      alignItems: "center",
+   },
+   [`& .${classes.smMargin}`]: {
+      margin: theme.spacing(1),
+   },
+   [`& .${classes.actionDiv}`]: {
+      textAlign: "center",
+   },
+}));
+
 const Index = ({ setCurrentId }) => {
-   const PREFIX = "Posts-style";
-
-   const classes = {
-      mainContainer: `${PREFIX}-mainContainer`,
-      smMargin: `${PREFIX}-smMargin`,
-      actionDiv: `${PREFIX}-actionDiv`,
-   };
-
-   const theme = createTheme();
-
-   const PostsStyled = styled(Grid)(({ theme }) => ({
-      [`& .${classes.mainContainer}`]: {
-         display: "flex",
-         alignItems: "center",
-      },
-      [`& .${classes.smMargin}`]: {
-         margin: theme.spacing(1),
-      },
-      [`& .${classes.actionDiv}`]: {
-         textAlign: "center",
-      },
-   }));
-
    const posts = useSelector((state) => state.posts);
 
    return !posts.length ? (

@@ -7,42 +7,42 @@ import { Form, Posts } from "./components";
 import { getPosts } from "./actions/posts";
 import memories from "./images/memories.png";
 
+const PREFIX = "App";
+
+const classes = {
+   appBar: `${PREFIX}-appBar`,
+   heading: `${PREFIX}-heading`,
+   image: `${PREFIX}-image`,
+   mainContainer: `${PREFIX}-mainContainer`,
+};
+
+// container by mui/material has used in here code to be new component
+
+const AppStyled = styled(Container)(({ theme }) => ({
+   [`& .${classes.appBar}`]: {
+      borderRadius: 15,
+      margin: "30px 0",
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "center",
+      alignItems: "center",
+   },
+   [`& .${classes.heading}`]: {
+      color: "rgba(0,183,255, 1)",
+   },
+   [`& .${classes.image}`]: {
+      marginLeft: "15px",
+   },
+   [theme.breakpoints.down("sm")]: {
+      [`& .${classes.mainContainer}`]: {
+         flexDirection: "column-reverse",
+      },
+   },
+}));
+
 function App() {
    const [currentId, setCurrentId] = useState(null);
    const dispatch = useDispatch();
-
-   const PREFIX = "App";
-
-   const classes = {
-      appBar: `${PREFIX}-appBar`,
-      heading: `${PREFIX}-heading`,
-      image: `${PREFIX}-image`,
-      mainContainer: `${PREFIX}-mainContainer`,
-   };
-
-   // container by mui/material has used in here code to be new component
-
-   const AppStyled = styled(Container)(({ theme }) => ({
-      [`& .${classes.appBar}`]: {
-         borderRadius: 15,
-         margin: "30px 0",
-         display: "flex",
-         flexDirection: "row",
-         justifyContent: "center",
-         alignItems: "center",
-      },
-      [`& .${classes.heading}`]: {
-         color: "rgba(0,183,255, 1)",
-      },
-      [`& .${classes.image}`]: {
-         marginLeft: "15px",
-      },
-      [theme.breakpoints.down("sm")]: {
-         [`& .${classes.mainContainer}`]: {
-            flexDirection: "column-reverse",
-         },
-      },
-   }));
 
    useEffect(() => {
       dispatch(getPosts());
