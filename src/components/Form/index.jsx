@@ -47,14 +47,14 @@ const Index = ({ currentId, setCurrentId }) => {
       tags: "",
       selectedFile: "",
    });
-   const post = useSelector((state) => {
-      return currentId ? state.posts.find((p) => p._id === currentId) : null;
-   });
+   const post = useSelector((state) =>
+      currentId ? state.posts.find((p) => p._id === currentId) : null
+   );
    const dispatch = useDispatch();
 
-   // useEffect(() => {
-   //    if (post) setPostData(post);
-   // }, [post]);
+   useEffect(() => {
+      if (post) setPostData(post);
+   }, [post]);
 
    const handleSubmit = (e) => {
       e.preventDefault();
