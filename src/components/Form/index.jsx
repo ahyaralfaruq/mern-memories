@@ -78,6 +78,12 @@ const Index = ({ currentId, setCurrentId }) => {
       });
    };
 
+   const creatorInput = (e) => {
+      const text = e.target.value;
+
+      setPostData({ ...postData, creator: text });
+   };
+
    return (
       <FormStyled className={classes.paper}>
          <form
@@ -95,9 +101,7 @@ const Index = ({ currentId, setCurrentId }) => {
                label="Creator"
                fullWidth
                value={postData.creator}
-               onChange={(e) =>
-                  setPostData({ ...postData, creator: e.target.value })
-               }
+               onChange={(e) => creatorInput(e)}
             />
             <TextField
                name="Title"
